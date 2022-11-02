@@ -6,7 +6,7 @@
     build-utils.url  = "github:sixears/flake-build-utils/r1.0.0.3";
 
     more-unicode.url = "github:sixears/more-unicode/r0.0.17.2";
-    natural.url      = "github:sixears/natural/r0.0.1.1";
+    natural.url      = "github:sixears/natural/r0.0.1.2";
   };
 
   outputs = { self, nixpkgs, flake-utils, build-utils, more-unicode, natural }:
