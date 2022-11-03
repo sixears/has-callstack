@@ -3,10 +3,10 @@
 
   inputs = {
     nixpkgs.url      = "github:nixos/nixpkgs/be44bf67"; # nixos-22.05 2022-10-15
-    build-utils.url  = "github:sixears/flake-build-utils/r1.0.0.3";
+    build-utils.url  = "github:sixears/flake-build-utils/r1.0.0.4";
 
-    more-unicode.url = "github:sixears/more-unicode/r0.0.17.2";
-    natural.url      = "github:sixears/natural/r0.0.1.2";
+    more-unicode.url = "github:sixears/more-unicode/r0.0.17.3";
+    natural.url      = "github:sixears/natural/r0.0.1.3";
   };
 
   outputs = { self, nixpkgs, flake-utils, build-utils, more-unicode, natural }:
