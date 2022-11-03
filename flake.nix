@@ -9,7 +9,7 @@
     natural.url      = "github:sixears/natural/r0.0.1.5";
   };
 
-  outputs = { self, nixpkgs, flake-utils, build-utils, more-unicode, natural }:
+  outputs = { self, nixpkgs, build-utils, more-unicode, natural }:
     build-utils.lib.hOutputs self nixpkgs "has-callstack" {
       deps = { inherit more-unicode natural; };
       ghc  = p: p.ghc8107; # for tfmt
