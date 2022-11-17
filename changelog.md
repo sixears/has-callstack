@@ -1,3 +1,7 @@
+1.0.1.12 2022-11-18
+===================
+- version fixes
+
 1.0.1.11 2022-11-17
 ===================
 - use callPackage to avoid callCabal2nix/IFD
