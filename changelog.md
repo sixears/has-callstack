@@ -1,3 +1,7 @@
+1.0.1.11 2022-11-17
+===================
+- use callPackage to avoid callCabal2nix/IFD
+
 1.0.1.10 2022-11-13
 ===================
 - fix fixed-package-name typo in flake-build-utils
