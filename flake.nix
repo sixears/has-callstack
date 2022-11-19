@@ -17,7 +17,7 @@
       deps = { inherit more-unicode natural; };
       ghc  = p: p.ghc8107; # for tfmt
 
-      callPackage = { mkDerivation, lib, system
+      callPackage = { mkDerivation, lib, mapPkg, system
                     , base, base-unicode-symbols, lens, safe, strings, text
                     }:
         let
