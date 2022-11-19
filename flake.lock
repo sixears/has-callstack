@@ -166,16 +166,16 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1668838235,
-        "narHash": "sha256-2Ipq8RVHFtXB3TJKoc5LLK+7QRDGHs45TwbKpL6A/50=",
+        "lastModified": 1668838908,
+        "narHash": "sha256-oRh/NDt8+Vv0/bgj2mtVbb200ZtK947NvO67lEgTVCE=",
         "owner": "sixears",
         "repo": "more-unicode",
-        "rev": "08c6e38cd94a67e8472aefe60cfc54901fd76089",
+        "rev": "f80f68e20dba330972a8b9266ca3d939f2754136",
         "type": "github"
       },
       "original": {
         "owner": "sixears",
-        "ref": "r0.0.17.10",
+        "ref": "r0.0.17.11",
         "repo": "more-unicode",
         "type": "github"
       }
@@ -187,16 +187,16 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1668838911,
-        "narHash": "sha256-60hmslFhtWBvvzXZzANO6AaqbwRicLIYTV9iuHWjxVk=",
+        "lastModified": 1668839935,
+        "narHash": "sha256-WeRSqUWcaN/idu9+qRUlCkzngA1Refq9BF8Pl6VT6kw=",
         "owner": "sixears",
         "repo": "natural",
-        "rev": "013228bafffacfaeea01ce95278f79e1fded4b21",
+        "rev": "ba8ac84bac1917f91fe1ccb5f31471529f19d4cd",
         "type": "github"
       },
       "original": {
         "owner": "sixears",
-        "ref": "r0.0.1.12",
+        "ref": "r0.0.1.13",
         "repo": "natural",
         "type": "github"
       }
