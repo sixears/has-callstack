@@ -25,7 +25,7 @@
         in
           mkDerivation {
             pname = "has-callstack";
-            version = "1.0.1.18";
+            version = "1.0.1.19";
             src = ./.;
             libraryHaskellDepends = [
               base base-unicode-symbols lens safe strings text
