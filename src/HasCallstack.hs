@@ -6,77 +6,78 @@
 {-# LANGUAGE ViewPatterns      #-}
 
 module HasCallstack
-  ( HasCallstack( callsitelist, callstack, renderCS, renderCSNE, renderCS0
-                , renderCS0NE, stackhead )
-  , renderCCS, renderCCSNE, renderCCS0, renderCCS0NE
-  )
-where
+  ( HasCallstack(callsitelist, callstack, renderCS, renderCSNE, renderCS0, renderCS0NE, stackhead)
+  , renderCCS
+  , renderCCS0
+  , renderCCS0NE
+  , renderCCSNE
+  ) where
 
-import Prelude  ( (+), fromIntegral )
+import Prelude ( fromIntegral, (+) )
 
 -- base --------------------------------
 
-import GHC.Foreign  as  GHC
+import Data.List qualified
+import GHC.Foreign as GHC
 
-import Control.Applicative  ( pure )
-import Control.Monad        ( return )
-import Data.Bifunctor       ( first )
-import Data.Bool            ( otherwise )
-import Data.Foldable        ( Foldable, maximum )
-import Data.Function        ( ($), (&), const, id )
-import Data.Functor         ( Functor, fmap )
-import Data.List            ( intercalate, reverse )
-import Data.List.NonEmpty   ( NonEmpty, nonEmpty )
-import Data.Maybe           ( Maybe( Just, Nothing ), fromMaybe )
-import Data.String          ( String )
-import Data.Tuple           ( fst, snd )
-import Foreign.Ptr          ( Ptr, nullPtr )
-import GHC.Stack            ( CallStack, CostCentre, CostCentreStack, SrcLoc
-                            , ccsCC, ccsParent, ccLabel, ccModule, ccSrcSpan
-                            , fromCallSiteList, getCallStack, srcLocEndCol
-                            , srcLocEndLine, srcLocFile, srcLocModule
-                            , srcLocPackage, srcLocStartCol, srcLocStartLine
-                            )
-import System.IO            ( IO, utf8 )
-import Text.Show            ( show )
+import Control.Applicative ( pure )
+import Control.Monad       ( return )
+import Data.Bifunctor      ( first )
+import Data.Bool           ( otherwise )
+import Data.Foldable       ( Foldable, maximum )
+import Data.Function       ( const, id, ($), (&) )
+import Data.Functor        ( Functor, fmap )
+import Data.List           ( intercalate, reverse )
+import Data.List.NonEmpty  ( NonEmpty, nonEmpty )
+import Data.Maybe          ( Maybe(Just, Nothing), fromMaybe )
+import Data.String         ( String )
+import Data.Tuple          ( fst, snd )
+import Foreign.Ptr         ( Ptr, nullPtr )
+import GHC.Stack           ( CallStack, CostCentre, CostCentreStack, SrcLoc,
+                             ccLabel, ccModule, ccSrcSpan, ccsCC, ccsParent,
+                             fromCallSiteList, getCallStack, srcLocEndCol,
+                             srcLocEndLine, srcLocFile, srcLocModule,
+                             srcLocPackage, srcLocStartCol, srcLocStartLine )
+import System.IO           ( IO, utf8 )
+import Text.Show           ( show )
 
 -- base-unicode-symbols ----------------
 
-import Data.Bool.Unicode      ( (∧) )
-import Data.Eq.Unicode        ( (≡) )
-import Data.Function.Unicode  ( (∘) )
-import Data.Monoid.Unicode    ( (⊕) )
+import Data.Bool.Unicode     ( (∧) )
+import Data.Eq.Unicode       ( (≡) )
+import Data.Function.Unicode ( (∘) )
+import Data.Monoid.Unicode   ( (⊕) )
 
 -- lens --------------------------------
 
-import Control.Lens  ( Lens', lens, view )
+import Control.Lens ( Lens', lens, view )
 
 -- more-unicode ------------------------
 
-import Data.MoreUnicode.Functor  ( (⊳), (⩺) )
-import Data.MoreUnicode.Lens     ( (⊣), (⊢) )
-import Data.MoreUnicode.Monad    ( (≪) )
-import Data.MoreUnicode.Monoid   ( ю )
-import Data.MoreUnicode.String   ( 𝕊 )
-import Data.MoreUnicode.Text     ( 𝕋 )
-
--- natural -----------------------------
-
-import Natural  ( ℕ, length )
+import Data.MoreUnicode.Functor ( (⊳), (⩺) )
+import Data.MoreUnicode.Lens    ( (⊢), (⊣) )
+import Data.MoreUnicode.Monad   ( (≪) )
+import Data.MoreUnicode.Monoid  ( ю )
+import Data.MoreUnicode.Natural ( ℕ )
+import Data.MoreUnicode.String  ( 𝕊 )
+import Data.MoreUnicode.Text    ( 𝕋 )
 
 -- safe --------------------------------
 
-import Safe  ( headMay )
+import Safe ( headMay )
 
 -- strings -----------------------------
 
-import Data.Strings  ( Str, strPadRight )
+import Data.Strings ( Str, strPadRight )
 
 -- text --------------------------------
 
-import Data.Text  ( pack )
+import Data.Text ( pack )
 
 --------------------------------------------------------------------------------
+
+length ∷ [α] → ℕ
+length = fromIntegral ∘ Data.List.length
 
 rPad ∷ Str σ ⇒ ℕ → σ → σ
 rPad = strPadRight ' ' ∘ fromIntegral
@@ -154,7 +155,10 @@ instance HasCallstack [(String,SrcLoc)] where
 ------------------------------------------------------------
 
 {- | Source Locations as reported by the profiler -}
-data ProfSrcLoc = ProfSrcLoc { _label ∷ 𝕊, _mod ∷ 𝕊, _src ∷ 𝕊 }
+data ProfSrcLoc = ProfSrcLoc { _label :: 𝕊
+                             , _mod   :: 𝕊
+                             , _src   :: 𝕊
+                             }
 
 {-| find the max length of each of the label and mod of a list of ProfSrcLocs -}
 srcLocLengths ∷ NonEmpty ProfSrcLoc → (ℕ,ℕ)

@@ -1,3 +1,7 @@
+1.0.2.0 2025-01-16
+==================
+- remove dependency on natural, so natural can depend on this
+
 1.0.1.19 2022-11-20
 ===================
 - update
